@@ -8,6 +8,9 @@ import com.ocs.bean.account.Account;
 import com.ocs.bean.account.PackageInfo;
 import com.ocs.bean.account.RuleUsage;
 import com.ocs.bean.event.DataTrafficEvent;
+import com.ocs.dao.PackageDAO;
+import com.ocs.dao.impl.BDBEnv;
+import com.ocs.dao.impl.PackageDAOBDBImpl;
 
 /**
  * This is a sample class to launch a rule.
@@ -15,7 +18,7 @@ import com.ocs.bean.event.DataTrafficEvent;
 public class DroolsTest {
 
     public static final void main(String[] args) throws ParseException {
-    	
+    	    	
     	String number = "13412345678";
     	
     	DataTrafficEvent dte = new DataTrafficEvent();

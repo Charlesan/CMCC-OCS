@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="libs/JavaSCTP-0-5-8.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Tair Referenced Libraries"/>
 	<classpathentry kind="lib" path="libs/je-5.0.103.jar"/>
+	<classpathentry kind="lib" path="F:/[ 8 ] Workspaces/CMCC OCS/CMCC-OCS/libs/mysql-connector-java-5.1.18-bin.jar"/>
 	<classpathentry kind="output" path="target"/>
 </classpath>

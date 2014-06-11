@@ -329,7 +329,35 @@ public final class ProtocolConstants
     public static final int DI_ACCOUNTING_EAP_AUTH_METHOD = 465;
     
     //add by Wang Chao
-    public static final int _3GPP_SERVICE_INFORMATION = 0;
-    public static final int _3GPP_PS_INFORMATION = 0;
-    public static final int _3GPP_USER_LOCATION_INFO = 0;
+    //date: 2014-4-8
+    //添加3GPP标准中相关AVP定义
+    public static final int _3GPP_SERVICE_INFORMATION = 873; //业务信息
+    public static final int _3GPP_PS_INFORMATION = 874; //PS域业务信息组，用于GPRS业务计费
+    public static final int _3GPP_USER_LOCATION_INFO = 22; //用户位置标识
+    
+    //add by Miu Chan
+    //date:2014-4-15
+    //添加
+    public static final int _3GPP_COMMAND_AR = 241;
+    public static final int _3GPP_COMMAND_AO = 251;
+    public static final int _3GPP_DI_BALANCE = 10015;
+    public static final int _3GPP_DI_BALANCE_ID = 10016;
+    public static final int _3GPP_DI_BALANCE_TYPE = 10017;
+    public static final int _3GPP_DI_BALANCE_EXPIRY_DATE = 40001;
+    public static final int _3GPP_DI_BALANCE_VALUE = 10018;
+    public static final int _3GPP_DI_COUNTER = 10043;
+    public static final int _3GPP_DI_COUNTER_ID = 10073;
+    public static final int _3GPP_DI_COUNTER_TYPE = 10086;
+    public static final int _3GPP_DI_COUNTER_EXPIRY_DATE = 10072;
+    public static final int _3GPP_DI_COUNTER_VALUE = 10087;
+    public static final int _3GPP_DI_COUNTER_THRESHOLD = 10085;
+    public static final int _3GPP_DI_SUBSCRIBER_ID =10224;
+    public static final int _3GPP_DI_ACCOUNT_ID = 40151;
+    
+    public static final int _3GPP_DI_MULTIPLE_DEDUCT_OPERATION = 40056;
+    public static final int _3GPP_DI_ACCOUNT_ITEM = 40142;
+    public static final int _3GPP_DI_ACCOUNT_ITEM_TYPE = 10002;
+    public static final int _3GPP_DI_CHANGE_VALUE = 40000;
+    public static final int _3GPP_DI_CLEAR_RESERVE_INDICATOR = 10065;
+    public static final int _3GPP_DI_MULTIPLE_RESERVE_OPERATION = 40143;
 }

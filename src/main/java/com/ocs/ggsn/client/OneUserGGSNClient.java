@@ -22,6 +22,7 @@ import com.ocs.protocol.diameter.node.NodeSettings;
 import com.ocs.protocol.diameter.node.Peer;
 import com.ocs.protocol.diameter.node.SimpleSyncClient;
 import com.ocs.protocol.diameter.node.UnsupportedTransportProtocolException;
+import com.ocs.utils.MessageUtils;
 
 public class OneUserGGSNClient {
 	
@@ -176,7 +177,7 @@ public class OneUserGGSNClient {
 		initialMessage.add(new AVP_Grouped(ProtocolConstants._3GPP_SERVICE_INFORMATION, 
 				new AVP[] {new AVP_Grouped(ProtocolConstants._3GPP_PS_INFORMATION,
 									//要实现：将位置信息编码为byte[]
-									new AVP[]{ new AVP_OctetString(ProtocolConstants._3GPP_USER_LOCATION_INFO, new byte[]{})}  )}));
+									new AVP[]{ new AVP_OctetString(ProtocolConstants._3GPP_USER_LOCATION_INFO, MessageUtils.string2ByteArray("广州"))}  )}));
 		
 		//  [ Service-Identifier ]
 		//  [ Termination-Cause ] 是不是要在T包中给这个AVP?

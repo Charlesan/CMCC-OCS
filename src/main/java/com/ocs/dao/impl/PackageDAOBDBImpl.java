@@ -5,7 +5,6 @@ import java.util.List;
 import com.ocs.bean.packagerule.DataTrafficService;
 import com.ocs.bean.packagerule.DataTrafficServiceRule;
 import com.ocs.bean.packagerule.Package;
-import com.ocs.bean.packagerule.VoiceServiceRule;
 import com.ocs.bean.packagerule.Package.ServiceType;
 import com.ocs.bean.packagerule.VoiceService;
 import com.ocs.dao.PackageDAO;

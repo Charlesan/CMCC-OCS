@@ -19,6 +19,7 @@ public class CFSession {
 	private String callingNum; //主叫号码
 	private int dataLen; //会话长度
 	private Object dataBody; //会话数据体
+	
 	public String getSessionID() {
 		return sessionID;
 	}

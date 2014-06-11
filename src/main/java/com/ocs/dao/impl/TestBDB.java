@@ -20,6 +20,7 @@ public class TestBDB {
 //    	System.out.println(dao.getPackage(pkg.getPackageID()));
     	
     	System.out.println(dao.queryTariff(pkg.getPackageID(), ServiceType.DATA_TRAFFIC, "Rule_DG3G19_BASE"));
+    	
     }
 
 }

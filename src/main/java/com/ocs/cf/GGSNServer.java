@@ -55,6 +55,7 @@ public class GGSNServer extends NodeManager {
 		tss.stop(50); // Stop but allow 50ms graceful shutdown
 	}
 
+	//Select线程在跑的方法
 	protected void handleRequest(Message request, ConnectionKey connkey,
 			Peer peer) {
 		// this is not the way to do it, but fine for a lean-and-mean test server
@@ -151,69 +152,73 @@ public class GGSNServer extends NodeManager {
 				g.code = ProtocolConstants.DI_GRANTED_SERVICE_UNIT;
 				answer.add(avp);
 			}
-			this.cfWorkerThreadPool.getExecutor().execute(new CFWorker(request, cc_request_type));;
+			this.cfWorkerThreadPool.getExecutor().execute(new CFWorker(this, connkey, request, cc_request_type, answer));
 			break;
-		case ProtocolConstants.DI_CC_REQUEST_TYPE_EVENT_REQUEST: { //Event类型请求的分支
-			// examine requested-action
-			avp = request.find(ProtocolConstants.DI_REQUESTED_ACTION);
-			if (avp == null) {
-				answerError(answer, connkey,
-						ProtocolConstants.DIAMETER_RESULT_MISSING_AVP,
-						new AVP[] { new AVP_Grouped(
-								ProtocolConstants.DI_FAILED_AVP,
-								new AVP[] { new AVP(
-										ProtocolConstants.DI_REQUESTED_ACTION,
-										new byte[] {}) }) });
-				return;
-			}
-			int requested_action = -1;
-			try {
-				requested_action = new AVP_Unsigned32(avp).queryValue();
-			} catch (InvalidAVPLengthException ex) {
-			}
-			switch (requested_action) {
-			case ProtocolConstants.DI_REQUESTED_ACTION_DIRECT_DEBITING:
-				// nothing. just indicate success
-				break;
-			case ProtocolConstants.DI_REQUESTED_ACTION_REFUND_ACCOUNT:
-				// nothing. just indicate success
-				break;
-			case ProtocolConstants.DI_REQUESTED_ACTION_CHECK_BALANCE:
-				// report back that the user has sufficient balance
-				answer.add(new AVP_Unsigned32(
-						ProtocolConstants.DI_CHECK_BALANCE_RESULT,
-						ProtocolConstants.DI_DI_CHECK_BALANCE_RESULT_ENOUGH_CREDIT));
-				break;
-			case ProtocolConstants.DI_REQUESTED_ACTION_PRICE_ENQUIRY:
-				// report back a price of DKK42.17 per kanelsnegl
-				answer.add(new AVP_Grouped(
-						ProtocolConstants.DI_COST_INFORMATION,
-						new AVP[] {
-								new AVP_Grouped(
-										ProtocolConstants.DI_UNIT_VALUE,
-										new AVP[] {
-												new AVP_Integer64(
-														ProtocolConstants.DI_VALUE_DIGITS,
-														4217),
-												new AVP_Integer32(
-														ProtocolConstants.DI_EXPONENT,
-														-2) }),
-								new AVP_Unsigned32(
-										ProtocolConstants.DI_CURRENCY_CODE, 208),
-								new AVP_UTF8String(
-										ProtocolConstants.DI_COST_UNIT,
-										"kanelsnegl") }));
-				break;
-			default: {
-				answerError(answer, connkey,
-						ProtocolConstants.DIAMETER_RESULT_INVALID_AVP_VALUE,
-						new AVP[] { new AVP_Grouped(
-								ProtocolConstants.DI_FAILED_AVP,
-								new AVP[] { avp }) });
-				return;
-			}
-			}
-		}
+			
+		//event类型的请求，先注释掉，本项目不涉及
+//		case ProtocolConstants.DI_CC_REQUEST_TYPE_EVENT_REQUEST: { //Event类型请求的分支
+//			// examine requested-action
+//			avp = request.find(ProtocolConstants.DI_REQUESTED_ACTION);
+//			if (avp == null) {
+//				answerError(answer, connkey,
+//						ProtocolConstants.DIAMETER_RESULT_MISSING_AVP,
+//						new AVP[] { new AVP_Grouped(
+//								ProtocolConstants.DI_FAILED_AVP,
+//								new AVP[] { new AVP(
+//										ProtocolConstants.DI_REQUESTED_ACTION,
+//										new byte[] {}) }) });
+//				return;
+//			}
+//			int requested_action = -1;
+//			try {
+//				requested_action = new AVP_Unsigned32(avp).queryValue();
+//			} catch (InvalidAVPLengthException ex) {
+//			}
+//			switch (requested_action) {
+//			case ProtocolConstants.DI_REQUESTED_ACTION_DIRECT_DEBITING:
+//				// nothing. just indicate success
+//				break;
+//			case ProtocolConstants.DI_REQUESTED_ACTION_REFUND_ACCOUNT:
+//				// nothing. just indicate success
+//				break;
+//			case ProtocolConstants.DI_REQUESTED_ACTION_CHECK_BALANCE:
+//				// report back that the user has sufficient balance
+//				answer.add(new AVP_Unsigned32(
+//						ProtocolConstants.DI_CHECK_BALANCE_RESULT,
+//						ProtocolConstants.DI_DI_CHECK_BALANCE_RESULT_ENOUGH_CREDIT));
+//				break;
+//			case ProtocolConstants.DI_REQUESTED_ACTION_PRICE_ENQUIRY:
+//				// report back a price of DKK42.17 per kanelsnegl
+//				answer.add(new AVP_Grouped(
+//						ProtocolConstants.DI_COST_INFORMATION,
+//						new AVP[] {
+//								new AVP_Grouped(
+//										ProtocolConstants.DI_UNIT_VALUE,
+//										new AVP[] {
+//												new AVP_Integer64(
+//														ProtocolConstants.DI_VALUE_DIGITS,
+//														4217),
+//												new AVP_Integer32(
+//														ProtocolConstants.DI_EXPONENT,
+//														-2) }),
+//								new AVP_Unsigned32(
+//										ProtocolConstants.DI_CURRENCY_CODE, 208),
+//								new AVP_UTF8String(
+//										ProtocolConstants.DI_COST_UNIT,
+//										"kanelsnegl") }));
+//				break;
+//			default: {
+//				answerError(answer, connkey,
+//						ProtocolConstants.DIAMETER_RESULT_INVALID_AVP_VALUE,
+//						new AVP[] { new AVP_Grouped(
+//								ProtocolConstants.DI_FAILED_AVP,
+//								new AVP[] { avp }) });
+//				return;
+//			}
+//			}
+//		}
+			
+			
 		}
 
 		Utils.setMandatory_RFC3588(answer);

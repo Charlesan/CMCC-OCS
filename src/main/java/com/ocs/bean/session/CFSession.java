@@ -1,11 +1,14 @@
 package com.ocs.bean.session;
 
+import java.io.Serializable;
+
 /**
  * CF产生的会话实体类，对应从兴所给资料"数据库设计说明书"中的PS_SESSION表
  * @author Wang Chao
  *
  */
-public class CFSession {
+@SuppressWarnings("serial")
+public class CFSession implements Serializable {
 	private String sessionID; //会话ID
 	private long ratingGroup; //计费组
 	private String originHost; //发送主机名

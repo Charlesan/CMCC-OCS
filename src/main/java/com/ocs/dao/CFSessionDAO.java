@@ -1,5 +1,7 @@
 package com.ocs.dao;
 
+import java.util.List;
+
 import com.ocs.bean.session.CFSession;
 
 /**
@@ -9,6 +11,8 @@ import com.ocs.bean.session.CFSession;
  */
 public interface CFSessionDAO {
 	public int writeCFSession(CFSession session);
+	
+	public CFSession getCFSession(String sessionID);
 
-	public int deleteCFSession(); 
+	public int deleteCFSession(List<String> sessionIDs); 
 }

@@ -59,7 +59,6 @@ public class GGSNServer extends NodeManager {
 	protected void handleRequest(Message request, ConnectionKey connkey,
 			Peer peer) {
 		// this is not the way to do it, but fine for a lean-and-mean test server
-//		System.out.println("ConnectionKey:hihihi" + connkey.hashCode());
 		Message answer = new Message();
 		answer.prepareResponse(request);
 		AVP avp;

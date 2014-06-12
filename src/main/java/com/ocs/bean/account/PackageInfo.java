@@ -35,4 +35,14 @@ public class PackageInfo {
 	public void printObject(){
 		System.out.println(getPrintString());
 	}
+
+	@Override
+	public String toString() {
+		return "PackageInfo [packageID=" + packageID + ", packageName="
+				+ packageName + ", validTime_Start=" + validTime_Start
+				+ ", validTime_End=" + validTime_End + ", usages=" + usages
+				+ "]";
+	}
+	
+	
 }

@@ -154,7 +154,7 @@ public class MySQLConnector {
 	
 			while(rs.next()){
 				Counter cnt = new Counter(rs.getLong("COUNTER_ID"), 
-										rs.getLong("COUNTER_TYPE"), 
+										rs.getString("COUNTER_TYPE"), 
 										rs.getTimestamp("EXP_DATE"), 
 										rs.getDouble("COUNTER_VALUE"),
 										rs.getDouble("COUNTER_THRESHOLD"));
@@ -194,7 +194,7 @@ public class MySQLConnector {
 	
 			while(rs.next()){
 				Counter cnt = new Counter(rs.getLong("COUNTER_ID"), 
-							rs.getLong("COUNTER_TYPE"), 
+							rs.getString("COUNTER_TYPE"), 
 							rs.getTimestamp("EXP_DATE"), 
 							rs.getDouble("COUNTER_VALUE"),
 							rs.getDouble("COUNTER_THRESHOLD"));

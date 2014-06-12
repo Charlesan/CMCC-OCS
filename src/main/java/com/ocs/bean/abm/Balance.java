@@ -27,7 +27,7 @@ public class Balance {
 	public String toString() {
 		return "Balance [balanceID=" + balanceID + ", balanceType="
 				+ balanceType + ", balanceExpDate=" + balanceExpDate
-				+ ", balanceValue=" + balanceValue + "]";
+				+ ", balanceValue=" + balanceValue + "]\n";
 	}
 	
 	public long getBalanceID() {

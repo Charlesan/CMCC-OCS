@@ -164,13 +164,13 @@ public class OneUserGGSNClient {
 		// *[ Subscription-Id ]
 		initialMessage.add(new AVP_Grouped(ProtocolConstants.DI_SUBSCRIPTION_ID,
 									new AVP[] {new AVP_Unsigned32(ProtocolConstants.DI_SUBSCRIPTION_ID_TYPE, ProtocolConstants.DI_SUBSCRIPTION_ID_TYPE_END_USER_E164),
-											   new AVP_UTF8String(ProtocolConstants.DI_SUBSCRIPTION_ID_DATA, "8613450215843")}));
+											   new AVP_UTF8String(ProtocolConstants.DI_SUBSCRIPTION_ID_DATA, "13430321124")}));
 		//    Multiple-Services-Indicator 表示是否支持MSCC
 		initialMessage.add(new AVP_Unsigned32(ProtocolConstants.DI_MULTIPLE_SERVICES_INDICATOR, 1));
 		//	  Multiple-Services-Credit-Control
 		initialMessage.add(new AVP_Grouped(ProtocolConstants.DI_MULTIPLE_SERVICES_CREDIT_CONTROL, 
 									new AVP[] {new AVP_Grouped(ProtocolConstants.DI_REQUESTED_SERVICE_UNIT, 
-														new AVP[]{}  )}));
+											new AVP[]{ new AVP_Unsigned64(ProtocolConstants.DI_CC_TOTAL_OCTETS, 1024) }  )}));
 		// 	  Service-Information
 		//	 	  PS-Information
 		//	 	  	  3GPP-User-Location-Info
@@ -205,7 +205,7 @@ public class OneUserGGSNClient {
 		//  { CC-Request-Type } 不同的request类型不同了！
 		updateMessage.add(new AVP_Unsigned32(ProtocolConstants.DI_CC_REQUEST_TYPE,ProtocolConstants.DI_CC_REQUEST_TYPE_UPDATE_REQUEST));
 		//  { CC-Request-Number } 这个字段是要逐一增加的哦~~
-		updateMessage.add(new AVP_Unsigned32(ProtocolConstants.DI_CC_REQUEST_NUMBER,0));
+		updateMessage.add(new AVP_Unsigned32(ProtocolConstants.DI_CC_REQUEST_NUMBER,1));
 		
 		//  [ Destination-Host ]
 		updateMessage.add(new AVP_UTF8String(ProtocolConstants.DI_DESTINATION_HOST, "BOSS@cmcc.com"));
@@ -216,7 +216,7 @@ public class OneUserGGSNClient {
 		// *[ Subscription-Id ]
 		updateMessage.add(new AVP_Grouped(ProtocolConstants.DI_SUBSCRIPTION_ID,
 									new AVP[] {new AVP_Unsigned32(ProtocolConstants.DI_SUBSCRIPTION_ID_TYPE, ProtocolConstants.DI_SUBSCRIPTION_ID_TYPE_END_USER_E164),
-											   new AVP_UTF8String(ProtocolConstants.DI_SUBSCRIPTION_ID_DATA, "8613450215843")}));
+											   new AVP_UTF8String(ProtocolConstants.DI_SUBSCRIPTION_ID_DATA, "13430321124")}));
 		//    Multiple-Services-Indicator 表示是否支持MSCC
 		updateMessage.add(new AVP_Unsigned32(ProtocolConstants.DI_MULTIPLE_SERVICES_INDICATOR, 1));
 		//	  Multiple-Services-Credit-Control
@@ -257,7 +257,7 @@ public class OneUserGGSNClient {
 		//  { CC-Request-Type } 不同的request类型不同了！
 		terminalMessage.add(new AVP_Unsigned32(ProtocolConstants.DI_CC_REQUEST_TYPE,ProtocolConstants.DI_CC_REQUEST_TYPE_TERMINATION_REQUEST));
 		//  { CC-Request-Number } 这个字段是要逐一增加的哦~~
-		terminalMessage.add(new AVP_Unsigned32(ProtocolConstants.DI_CC_REQUEST_NUMBER,0));
+		terminalMessage.add(new AVP_Unsigned32(ProtocolConstants.DI_CC_REQUEST_NUMBER,2));
 		
 		//  [ Destination-Host ]
 		terminalMessage.add(new AVP_UTF8String(ProtocolConstants.DI_DESTINATION_HOST, "BOSS@cmcc.com"));
@@ -268,7 +268,7 @@ public class OneUserGGSNClient {
 		// *[ Subscription-Id ]
 		terminalMessage.add(new AVP_Grouped(ProtocolConstants.DI_SUBSCRIPTION_ID,
 									new AVP[] {new AVP_Unsigned32(ProtocolConstants.DI_SUBSCRIPTION_ID_TYPE, ProtocolConstants.DI_SUBSCRIPTION_ID_TYPE_END_USER_E164),
-											   new AVP_UTF8String(ProtocolConstants.DI_SUBSCRIPTION_ID_DATA, "8613450215843")}));
+											   new AVP_UTF8String(ProtocolConstants.DI_SUBSCRIPTION_ID_DATA, "13430321124")}));
 		//    Multiple-Services-Indicator 表示是否支持MSCC
 		terminalMessage.add(new AVP_Unsigned32(ProtocolConstants.DI_MULTIPLE_SERVICES_INDICATOR, 1));
 		//	  Multiple-Services-Credit-Control
@@ -310,12 +310,19 @@ public class OneUserGGSNClient {
 				if ( avp != null ) {
 					AVP_Unsigned32 result_code_u32_2 = new AVP_Unsigned32(avp);
 					int type = result_code_u32_2.queryValue();
-					if ( type == ProtocolConstants.DI_CC_REQUEST_TYPE_INITIAL_REQUEST)
+					if ( type == ProtocolConstants.DI_CC_REQUEST_TYPE_INITIAL_REQUEST) {
 						System.out.println("成功收到I包回复。------会话建立");
-					if ( type == ProtocolConstants.DI_CC_REQUEST_TYPE_UPDATE_REQUEST)
+						System.out.println("成功下发：" + 1024 + "KB.");
+						System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<");
+					}
+					if ( type == ProtocolConstants.DI_CC_REQUEST_TYPE_UPDATE_REQUEST) {
 						System.out.println("成功收到U包回复。------配额预留成功");
+						System.out.println("成功下发：" + 1024 + "KB.");
+						System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<");
+					}
 					if ( type == ProtocolConstants.DI_CC_REQUEST_TYPE_TERMINATION_REQUEST)
 						System.out.println("成功收到T包回复。------结束会话");
+						System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<");
 				}
 				break;
 			case ProtocolConstants.DIAMETER_RESULT_END_USER_SERVICE_DENIED:

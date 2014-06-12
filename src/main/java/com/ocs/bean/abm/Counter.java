@@ -5,20 +5,20 @@ import java.sql.Timestamp;
 
 public class Counter {
 	private long counterID;
-	private long counterType;
+	private String counterType;
 	private Timestamp counterExpTime;
 	private double counterValue;
 	private double counterThreshold;
 
 	public Counter(){
 		this.counterID = 0;
-		this.counterType = 0;
+		this.counterType = null;
 		this.counterExpTime = null;
 		this.counterValue = 0;
 		this.counterThreshold = 0;
 	}
 	
-	public Counter(long counterID, long counterType, Timestamp counterExpTime,
+	public Counter(long counterID, String counterType, Timestamp counterExpTime,
 			double counterValue, double counterThreshold) {
 		this.counterID = counterID;
 		this.counterType = counterType;
@@ -32,7 +32,7 @@ public class Counter {
 		return "Counter [counterID=" + counterID + ", counterType="
 				+ counterType + ", counterExpTime=" + counterExpTime
 				+ ", counterValue=" + counterValue + ", counterThreshold="
-				+ counterThreshold + "]";
+				+ counterThreshold + "]\n";
 	}
 
 	public long getCounterID() {
@@ -43,11 +43,11 @@ public class Counter {
 		this.counterID = counterID;
 	}
 
-	public long getCounterType() {
+	public String getCounterType() {
 		return counterType;
 	}
 
-	public void setCounterType(long counterType) {
+	public void setCounterType(String counterType) {
 		this.counterType = counterType;
 	}
 

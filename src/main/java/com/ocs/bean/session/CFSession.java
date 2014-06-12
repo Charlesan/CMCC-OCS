@@ -2,6 +2,8 @@ package com.ocs.bean.session;
 
 import java.io.Serializable;
 
+import com.ocs.bean.event.RatingResult;
+
 /**
  * CF产生的会话实体类，对应从兴所给资料"数据库设计说明书"中的PS_SESSION表
  * @author Wang Chao
@@ -21,7 +23,7 @@ public class CFSession implements Serializable {
 	private long endTime; //会话结束时间
 	private String callingNum; //主叫号码
 	private int dataLen; //会话长度
-	private Object dataBody; //会话数据体
+	private RatingResult dataBody; //会话数据体
 	
 	public String getSessionID() {
 		return sessionID;
@@ -98,8 +100,18 @@ public class CFSession implements Serializable {
 	public Object getDataBody() {
 		return dataBody;
 	}
-	public void setDataBody(Object dataBody) {
+	public void setDataBody(RatingResult dataBody) {
 		this.dataBody = dataBody;
+	}
+	@Override
+	public String toString() {
+		return "CFSession [sessionID=" + sessionID + ", ratingGroup="
+				+ ratingGroup + ", originHost=" + originHost + ", originRealm="
+				+ originRealm + ", seqNo=" + seqNo + ", mgsType=" + mgsType
+				+ ", CCASendTime=" + CCASendTime + ", sessionState="
+				+ sessionState + ", beginTime=" + beginTime + ", endTime="
+				+ endTime + ", callingNum=" + callingNum + ", dataLen="
+				+ dataLen + ", dataBody=" + dataBody + "]";
 	}
 	
 	

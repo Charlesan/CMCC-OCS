@@ -6,6 +6,7 @@ import com.ocs.protocol.diameter.AVP;
 import com.ocs.protocol.diameter.AVP_Grouped;
 import com.ocs.protocol.diameter.AVP_OctetString;
 import com.ocs.protocol.diameter.AVP_UTF8String;
+import com.ocs.protocol.diameter.AVP_Unsigned32;
 import com.ocs.protocol.diameter.AVP_Unsigned64;
 import com.ocs.protocol.diameter.InvalidAVPLengthException;
 import com.ocs.protocol.diameter.Message;
@@ -155,6 +156,50 @@ public class MessageUtils {
 				} catch (InvalidAVPLengthException e) {
 					e.printStackTrace();
 				}
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 查询获批配额信息
+	 */
+	public static long queryGrantedServiceUnit(Message message) {
+		long result = -1;
+		
+		AVP avp = message.find(ProtocolConstants.DI_GRANTED_SERVICE_UNIT);
+		if ( avp != null ) {
+			AVP[] avps = null;
+			try {
+				avps = new AVP_Grouped(avp).queryAVPs();
+			} catch (InvalidAVPLengthException e) {
+				e.printStackTrace();
+			}
+			if ( avps != null ) {
+				try {
+					result = new AVP_Unsigned64(avps[0]).queryValue();
+				} catch (InvalidAVPLengthException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 查询CC_REQUEST_NUMBER
+	 */
+	public static int queryCCReqeustNumber(Message message) {
+		int result = -1;
+		
+		AVP avp = message.find(ProtocolConstants.DI_CC_REQUEST_NUMBER);
+		if ( avp != null ) {
+			try {
+				result = new AVP_Unsigned32(avp).queryValue();
+			} catch (InvalidAVPLengthException e) {
+				e.printStackTrace();
 			}
 		}
 		

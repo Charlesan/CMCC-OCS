@@ -17,4 +17,12 @@ public class RuleUsage {
 	public void printObject(){
 		System.out.println(getPrintString());
 	}
+
+	@Override
+	public String toString() {
+		return "RuleUsage [ruleID=" + ruleID + ", ruleName=" + ruleName
+				+ ", remainQuantity=" + remainQuantity + "]";
+	}
+	
+	
 }

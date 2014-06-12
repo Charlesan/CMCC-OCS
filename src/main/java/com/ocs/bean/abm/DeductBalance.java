@@ -8,7 +8,7 @@ public class DeductBalance {
 	private long balanceType;
 	private long accountItemType;
 	private double chgValue;
-	private boolean clearReserveIndicator = false;
+	private int clearReserveIndicator;
 	
 	@Override
 	public String toString() {
@@ -48,10 +48,10 @@ public class DeductBalance {
 	public void setChgValue(double chgValue) {
 		this.chgValue = chgValue;
 	}
-	public boolean isClearReserveIndicator() {
+	public int getClearReserveIndicator() {
 		return clearReserveIndicator;
 	}
-	public void setClearReserveIndicator(boolean clearReserveIndicator) {
+	public void setClearReserveIndicator(int clearReserveIndicator) {
 		this.clearReserveIndicator = clearReserveIndicator;
 	}
 	

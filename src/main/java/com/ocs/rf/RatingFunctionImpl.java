@@ -31,12 +31,12 @@ public class RatingFunctionImpl implements RatingFunction {
         
         	
         	kSession.insert(event);
-        	PackageInfo mainSer = account.getMainServicce();
+        	PackageInfo mainSer = account.getMainService();
         	for(RuleUsage ru : mainSer.usages){
         		kSession.insert(ru);
         	}
         	
-        	for(PackageInfo addSer : account.additionalServices){
+        	for(PackageInfo addSer : account.getAdditionalServices()){
         		for(RuleUsage ru : addSer.usages){
             		kSession.insert(ru);
             	}
@@ -56,14 +56,16 @@ public class RatingFunctionImpl implements RatingFunction {
         	double fee = 0;
         	if(rr.ruleID.equals("Rule_DG3G19_4"))
         		fee = 0.5;
-        	rr.quantity = event.produceQuantity;
+        	rr.quantity = event.getProduceQuantity();
         	rr.totalPrice = rr.quantity*fee/1024;
         	
-        	System.out.println("\n-- Matching Result : ");
-        	rr.printObject();
-        	System.out.println();
+//        	System.out.println("\n-- Matching Result : ");
+//        	rr.printObject();
+//        	System.out.println();
+//        	
+//        	System.out.println("end >>>>>>> ");
         	
-        	System.out.println("end >>>>>>> ");
+        	return rr;
         } catch (Throwable t) {
             t.printStackTrace();
         }

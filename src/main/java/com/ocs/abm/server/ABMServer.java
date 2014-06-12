@@ -1,5 +1,6 @@
 package com.ocs.abm.server;
 
+
 import java.util.ArrayList;
 
 import com.ocs.bean.abm.Balance;
@@ -12,7 +13,6 @@ import com.ocs.protocol.diameter.AVP;
 import com.ocs.protocol.diameter.AVP_Float32;
 import com.ocs.protocol.diameter.AVP_Grouped;
 import com.ocs.protocol.diameter.AVP_Integer32;
-import com.ocs.protocol.diameter.AVP_Integer64;
 import com.ocs.protocol.diameter.AVP_Time;
 import com.ocs.protocol.diameter.AVP_UTF8String;
 import com.ocs.protocol.diameter.AVP_Unsigned32;
@@ -43,9 +43,9 @@ public class ABMServer extends NodeManager{
 
 //		String host_id = "172.22.192.84";
 //		String host_id = "192.168.1.133";
-		String host_id = "172.22.192.62";
+		String host_id = "127.0.0.1";
 		String realm = "cmcc.com";
-		int port = 3868;
+		int port = 3878;
 //		if (args.length >= 3)
 //			port = Integer.parseInt(args[2]);
 //		else
@@ -173,7 +173,7 @@ public class ABMServer extends NodeManager{
 			answer.add(new AVP_Grouped(ProtocolConstants._3GPP_DI_COUNTER,
 					new AVP[]{
 						new AVP_Unsigned64(ProtocolConstants._3GPP_DI_COUNTER_ID, cnt.getCounterID()),
-						new AVP_Integer64(ProtocolConstants._3GPP_DI_COUNTER_TYPE, cnt.getCounterType()),
+						new AVP_UTF8String(ProtocolConstants._3GPP_DI_COUNTER_TYPE, cnt.getCounterType()),
 						new AVP_Time(ProtocolConstants._3GPP_DI_COUNTER_EXPIRY_DATE, cnt.getCounterExpTime()),
 						new AVP_Float32(ProtocolConstants._3GPP_DI_COUNTER_VALUE, (float)cnt.getCounterValue()),
 						new AVP_Float32(ProtocolConstants._3GPP_DI_COUNTER_THRESHOLD, (float)cnt.getCounterThreshold())
@@ -304,6 +304,7 @@ public class ABMServer extends NodeManager{
 		
 		
 		// 查询扣减后的余额
+		System.out.println("\n扣减完成后状态");
 		ArrayList<Balance> balances = connector.getAccountBalance(account_id);
 		ArrayList<Counter> counters = connector.getCounterByObjectID(account_id);
 		
@@ -321,11 +322,13 @@ public class ABMServer extends NodeManager{
 		}
 		
 		// *[ Counter ]
+		System.out.println(">>>>> There is "+counters.size()+" Counter item(s)");
 		for(Counter cnt : counters){
+			System.out.println(cnt.toString());
 			answer.add(new AVP_Grouped(ProtocolConstants._3GPP_DI_COUNTER,
 					new AVP[]{
 						new AVP_Unsigned64(ProtocolConstants._3GPP_DI_COUNTER_ID, cnt.getCounterID()),
-						new AVP_Integer64(ProtocolConstants._3GPP_DI_COUNTER_TYPE, cnt.getCounterType()),
+						new AVP_UTF8String(ProtocolConstants._3GPP_DI_COUNTER_TYPE, cnt.getCounterType()),
 						new AVP_Time(ProtocolConstants._3GPP_DI_COUNTER_EXPIRY_DATE, cnt.getCounterExpTime()),
 						new AVP_Float32(ProtocolConstants._3GPP_DI_COUNTER_VALUE, (float)cnt.getCounterValue()),
 						new AVP_Float32(ProtocolConstants._3GPP_DI_COUNTER_THRESHOLD, (float)cnt.getCounterThreshold())
@@ -383,7 +386,7 @@ public class ABMServer extends NodeManager{
 	
 		long balance_id = 0;
 		long balance_type = 0;
-		boolean clear_indicator = false;
+		int clear_indicator = 0;
 		
 		for(AVP bavp : avp.queryAVPs()){
 			int bcode = bavp.code;
@@ -395,9 +398,7 @@ public class ABMServer extends NodeManager{
 				balance_type = new AVP_Integer32(bavp).queryValue();
 				break;
 			case ProtocolConstants._3GPP_DI_CLEAR_RESERVE_INDICATOR:
-				int c = (int) new AVP_Unsigned64(bavp).queryValue();
-				if(c==1)
-					clear_indicator = true;
+				clear_indicator = new AVP_Unsigned32(bavp).queryValue();
 				break;
 			default:
 				break;

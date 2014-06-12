@@ -22,17 +22,17 @@ public class DroolsTest {
     	String number = "13412345678";
     	
     	DataTrafficEvent dte = new DataTrafficEvent();
-    	dte.phoneNumber = number;
-    	dte.produceChannel = "All";
-    	dte.produceLocation = "国内";
-//    	dte.produceLocation = "省内";
-    	dte.produceQuantity = 512;
-//    	// 忙时
-//    	dte.produceTime_start = "11:01:00";
-//    	dte.produceTime_end = "11:01:05";
-    	// 闲时
-    	dte.produceTime_start = "08:01:00";
-    	dte.produceTime_end = "08:01:55";
+//    	dte.phoneNumber = number;
+//    	dte.produceChannel = "All";
+//    	dte.produceLocation = "国内";
+////    	dte.produceLocation = "省内";
+//    	dte.produceQuantity = 512;
+////    	// 忙时
+////    	dte.produceTime_start = "11:01:00";
+////    	dte.produceTime_end = "11:01:05";
+//    	// 闲时
+//    	dte.produceTime_start = "08:01:00";
+//    	dte.produceTime_end = "08:01:55";
     	
     	Account account = new Account();
     	account.accountID = number;
@@ -112,9 +112,11 @@ public class DroolsTest {
     	
     	System.out.println("Generate test user information >>>>>> ");
     	System.out.println("流量计费事件：");
-    	dte.printObject();
+//    	dte.printObject();
+    	System.out.println(dte);
     	System.out.println("用户状态：");
-    	account.printObject();
+//    	account.printObject();
+    	System.out.println(account);
     	System.out.println("Generation end >>>>>> \n\n");
     	
     	RatingFunctionImpl rf = new RatingFunctionImpl();

@@ -89,7 +89,7 @@ public class TestPackageDataGenerator {
 		pricingRule4.setPeriodEnd(24);
 		pricingRule4.setAccumulationFloor(0);
 		pricingRule4.setAccumulationCeiling(Integer.MAX_VALUE);
-		pricingRule4.setPrice(0.50);
+		pricingRule4.setPrice(0.5);
 		rule4.setDataTrafficServiceBillingResource(billingRes4);
 		rule4.setDataTrafficServicePricingRule(pricingRule4);
 		rule4.setRuleName("Rule_DG3G19_BASE");
